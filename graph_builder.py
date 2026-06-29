@@ -143,9 +143,10 @@ def make_petersen():
 
 def make_grid(rows, cols):
     nodes = [
-        node(r*cols+c, 0.1+c*0.8,(cols-1), 0.15+r*0.7(rows-1)) for  r in range(rows) for c in range(cols)
+        node(r*cols+c, 0.1 + c*0.8/(cols-1), 0.15 + r*0.7/(rows-1))
+        for r in range(rows) for c in range(cols)
     ]
-    edges = [] 
+    edges = []
     for r in range(rows):
         for c in range(cols):
             if c < cols-1: edges.append([r*cols+c, r*cols+c+1])
@@ -156,7 +157,7 @@ def make_grid3x4():
     nodes, edges = make_grid(3, 4)
     return graph( # vscode keeps saying this is not closed, but that is just erroneous. it is. i promise
         "grid 3x4",
-        "3x4 grid.  cop number 2"
+        "3x4 grid.  cop number 2",
         nodes, edges
     )
 
@@ -187,12 +188,13 @@ def make_necklace(k):
     for i in range(k):
         mid_x = (tip_xs[i] + tip_xs[i+1])/2
         top_id=next_id(); nodes.append(node(top_id, mid_x, top_y))
-        bot_id= next_id(); nodes.append(bot_id, mid_x, bot_y)
+        bot_id= next_id(); nodes.append(node(bot_id, mid_x, bot_y))
         edges += [
             [tip_ids[i], top_id], [tip_ids[i], bot_id],
             [top_id, tip_ids[i+1]],
             [bot_id, tip_ids[i+1]], # yo im so confused idk if this is right
         ]
+    return nodes, edges
 
 def make_necklace3():
     nodes, edges = make_necklace(3)
@@ -217,7 +219,7 @@ def make_necklace4():
 
 def build_all():
     return {
-        "path5": make_path5,
+        "path5": make_path5(),
         "path7":       make_path7(),
         "path12":      make_path12(),
         "cycle5":      make_cycle5(),
