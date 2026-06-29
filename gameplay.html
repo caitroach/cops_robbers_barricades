@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cops, Robbers & Barricades</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="gameplay.css">
+</head>
+<body>
+
+<header>
+  <h1>cops, robbers & barricades</h1>
+  <p>a turn-based graph game</p>
+</header>
+
+<div class="app">
+
+  <aside class="sidebar">
+
+    <div class="sidebar-section">
+      <h3>barricade variant</h3>
+      <select id="mode-select">
+        <option value="local"  selected>local barricades</option>
+        <option value="global">global barricades</option>
+        <option value="slug">slug barricades</option>
+      </select>
+      <div class="mode-desc" id="mode-desc"></div>
+    </div>
+
+    <div class="sidebar-section">
+      <h3>graph</h3>
+      <select id="graph-select">
+        <optgroup label="paths">
+          <option value="path5">Path P₅</option>
+          <option value="path7">Path P₇</option>
+          <option value="path12">Path P₁₂</option>
+        </optgroup>
+        <optgroup label="cycles">
+          <option value="cycle5">Cycle C₅</option>
+          <option value="cycle6">Cycle C₆</option>
+          <option value="cycle12">Cycle C₁₂</option>
+        </optgroup>
+        <optgroup label="trees">
+          <option value="caterpillar">caterpillar tree</option>
+          <option value="spider">spider S(2,2,3)</option>
+          <option value="tall_tree">tall tree (height 3)</option>
+        </optgroup>
+        <optgroup label="classic graphs">
+          <option value="complete4">complete K₄</option>
+          <option value="petersen" selected>petersen graph</option>
+          <option value="dodecahedron">dodecahedron</option>
+        </optgroup>
+        <optgroup label="Grids">
+          <option value="grid3x3">grid 3×3</option>
+          <option value="grid3x4">grid 3×4</option>
+        </optgroup>
+        <optgroup label="key examples">
+          <option value="necklace3">necklace N₃</option>
+          <option value="necklace4">necklace N₄</option>
+          <option value="hypercube">hypercube Q₃</option>
+          <option value="prism">prism Y₄</option>
+        </optgroup>
+      </select>
+      <div class="graph-desc" id="graph-desc"></div>
+    </div>
+
+    <div class="sidebar-section">
+      <h3>Setup</h3>
+      <div class="field-row">
+        <label for="cop-count">number of cops:</label>
+        <input type="number" id="cop-count" min="1" max="5" value="1">
+      </div>
+      <button class="btn primary" id="btn-start">new game!</button>
+    </div>
+
+    <hr>
+
+    <div class="sidebar-section">
+      <h3>phase</h3>
+      <div class="status-box" id="status-box">
+        Press <strong>new game</strong> to begin.
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <h3>legend</h3>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#A5C4D4;border-color:#5F98B0"></div>
+          cop
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#E8C87A;border-color:#C4A040"></div>
+          robber
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#E8D5D5;border-color:#C07070"></div>
+          barricaded (removed) node
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#F2D7D9;border-color:#C4A8B0"></div>
+          valid move
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#DDD0EC;border-color:#9B6B7E"></div>
+          selected cop
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="border:2px dashed #9B6B7E;background:transparent"></div>
+          barricade targets
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="sidebar-section">
+      <button class="btn ghost" id="btn-reset">reset game space</button>
+    </div>
+
+  </aside>
+
+  <div class="main">
+    <div class="canvas-wrap">
+      <canvas id="canvas"></canvas>
+      <button class="btn ghost" id="btn-skip-barricade" style="display:none">skip barricade</button>
+    </div>
+    <div class="instruction-bar" id="instruction-bar">
+      choose a graph, mode, and number of cops, then press <strong>new game</strong>.
+    </div>
+    <div class="log" id="log"></div>
+  </div>
+
+</div>
+
+<script src="gameplay.js"></script>
+</body>
+</html>
