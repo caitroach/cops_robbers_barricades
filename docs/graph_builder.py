@@ -22,14 +22,14 @@ def circle_nodes(n, start_id=0, cx=0.5, cy=0.5, r=0.36, angle_offset=0):
     for i in range(n):
         angle = 2*math.pi*i/n+angle_offset
         nodes.append(node(start_id+i, cx+r*math.cos(angle), cy + r*math.sin(angle)))
-        return nodes
+    return nodes
     
 def path_nodes(n, x0=0.05, x1=0.95, y=0.05):
     # n nodes in a horizontal line
     return [node(i, x0+i*(x1-x0)/(n-1),y) for i in range(n)]
 
 def path_edges(n, start_id=0):
-    return [[start_id + i, start_id + (i+1)%n] for i in range(n)]
+    return [[start_id+i, start_id+i+1] for i in range(n-1)]
 
 def cycle_edges(n, start_id=0):
     return [[start_id+i, start_id+(i+1)%n] for i in range(n)]
