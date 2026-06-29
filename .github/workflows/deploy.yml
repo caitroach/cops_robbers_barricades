@@ -20,6 +20,6 @@ jobs:
       - uses: actions/configure-pages@v4
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./sim
+          path: ./docs
       - uses: actions/deploy-pages@v4
         id: deployment
