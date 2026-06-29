@@ -11,3 +11,5 @@ This repo is mostly a storage space for papers and my attempts at Python simulat
 I aim to apply Mann's Python implementation to Dr. Meger's novel version of the game with a new mechanic: barricades, as introduced in her 2014 thesis. 
 
 My eventual goal is to create a simulation/algorithmic implementation of solving the barricade-cop-number, and investigating whether or not I can reduce the complexity of the algorithm with a small key. My first step is to make a game engine in React, which will let me visualize the problem and log game states. From there, I will find out how to calculate the complexity of the initial algorithm, and see if I can reduce it with a small key. 
+
+## basic simulation is LIVE at  https://caitroach.github.io/cops_robbers_barricades/gameplay.html  !!
