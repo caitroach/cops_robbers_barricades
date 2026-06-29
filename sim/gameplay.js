@@ -411,11 +411,12 @@ const C = {
   highlight:   '#9B6B7E',
 };
 
-function buildAdj(raw) { // takes a raw graph from JSON and builds adjacency list
+function buildAdj(raw) {
   const adj = {};
-  raw.nodes.forEach(n=>(adj[n.id]=[]));
-  raw.edges.forEach(([a,b])=>{adj[a].push(b); adj[b].push(a);})
-  return {...raw, adj};
+  const nodesById = {};
+  raw.nodes.forEach(n => { adj[n.id] = []; nodesById[n.id] = n; });
+  raw.edges.forEach(([a,b]) => { adj[a].push(b); adj[b].push(a); });
+  return { ...raw, adj, nodesById };
 }
 
 function loadGraphs() { 
@@ -456,8 +457,8 @@ function draw() {
 
   // draw edges
   g.edges.forEach(([a, b]) => {
-    const pa = nodePos(g.nodes[a]);
-    const pb = nodePos(g.nodes[b]);
+    const pa = nodePos(g.nodesById[a]);
+    const pb = nodePos(g.nodesById[b]);
     ctx.beginPath();
     ctx.moveTo(pa.x, pa.y);
     ctx.lineTo(pb.x, pb.y);
