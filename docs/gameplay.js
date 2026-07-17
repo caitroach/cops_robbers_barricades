@@ -1,4 +1,3 @@
-
 // function makeGraph(nodes, edges) {
 //   // nodes: [{id, x, y}]  x/y in [0,1] relative coords
 //   // edges: [[a, b], ...]
@@ -427,6 +426,28 @@ function loadGraphs() {
   .then(data=> {
     Object.assign(GRAPHS, data);
   })
+}
+
+// builds the graph dropdown from graphs.json -- the python builder is
+// the single source of truth now. add a graph there, rerun, it shows up.
+function populateGraphSelect() {
+  const sel = document.getElementById('graph-select');
+  sel.innerHTML = '';
+  const groups = {};
+  for (const [key, g] of Object.entries(GRAPHS)) {
+    const groupName = g.group || 'other';
+    if (!groups[groupName]) {
+      groups[groupName] = document.createElement('optgroup');
+      groups[groupName].label = groupName;
+      sel.appendChild(groups[groupName]);
+    }
+    const opt = document.createElement('option');
+    opt.value = key;
+    opt.textContent = g.label;
+    groups[groupName].appendChild(opt);
+  }
+  // keep petersen as the default selection like before
+  if (GRAPHS['petersen']) sel.value = 'petersen';
 }
 
 function resize() {
@@ -894,6 +915,7 @@ window.addEventListener('resize', resize);
 
 loadGraphs()
   .then(() => {
+    populateGraphSelect();
     refreshModeDesc();
     refreshGraphDesc();
     resize();

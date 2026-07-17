@@ -30,30 +30,9 @@
 
     <div class="sidebar-section">
       <h3>graph</h3>
-      <select id="graph-select">
-        <optgroup label="paths">
-          <option value="path5">Path P₅</option>
-          <option value="path7">Path P₇</option>
-          <option value="path12">Path P₁₂</option>
-        </optgroup>
-        <optgroup label="cycles">
-          <option value="cycle5">Cycle C₅</option>
-          <option value="cycle6">Cycle C₆</option>
-          <option value="cycle12">Cycle C₁₂</option>
-        </optgroup>
-        <optgroup label="classic graphs">
-          <option value="complete4">complete K₄</option>
-          <option value="petersen" selected>petersen graph</option>
-        </optgroup>
-        <optgroup label="Grids">
-          <option value="grid3x3">grid 3×3</option>
-          <option value="grid3x4">grid 3×4</option>
-        </optgroup>
-        <optgroup label="key examples">
-          <option value="necklace3">necklace N₃</option>
-          <option value="necklace4">necklace N₄</option>
-        </optgroup>
-      </select>
+      <!-- options are built from graphs.json at load time (see populateGraphSelect
+           in gameplay.js). add graphs in graph_builder.py, not here! -->
+      <select id="graph-select"></select>
       <div class="graph-desc" id="graph-desc"></div>
     </div>
 

@@ -1,6 +1,9 @@
 # it's absolutely psychotic to do this without libraries but im testing myself. 
 
 # builds all graphs from the thesis and writes them to graphs.json
+# NEW: each graph carries a "group" field -- the sim reads it to build
+# the dropdown optgroups, so this file is the single source of truth.
+# add a graph here, rerun, done. no html edits.
 
 import json 
 import math 
@@ -34,10 +37,11 @@ def path_edges(n, start_id=0):
 def cycle_edges(n, start_id=0):
     return [[start_id+i, start_id+(i+1)%n] for i in range(n)]
 
-def graph(label, desc, nodes, edges):
+def graph(label, desc, nodes, edges, group="other"):
     return {
         "label": label,
         "desc": desc,
+        "group": group,  # which dropdown optgroup this lands in
         "nodes": nodes, 
         "edges": edges
     }
@@ -48,6 +52,8 @@ graph definitions
 
 def make_complete_bipartite(num_sets, num_vertices): # k: number of sets; n: number of nodes in those sets
     # should check int types but i won't 
+    if num_sets < 2:
+        raise ValueError("need at least 2 sets (x spacing divides by num_sets-1)")
     sizes = [num_vertices]*num_sets 
 
     nodes = []
@@ -72,7 +78,8 @@ def make_complete_bipartite(num_sets, num_vertices): # k: number of sets; n: num
     return graph(
         f"staged complete bipartite ({'-'.join(map(str, sizes))})",
         f"path on {num_sets} sets, complete bipartite between sets",
-        nodes, edges
+        nodes, edges,
+        group="key examples"
     ) 
 
 
@@ -84,7 +91,8 @@ def make_path5():
     return graph (
         "path P₅", # i hope this renders, i dunno about the subscript
         "path on 5 vertices.",
-        nodes, edges
+        nodes, edges,
+        group="paths"
     )
 
 def make_path7(): 
@@ -93,7 +101,8 @@ def make_path7():
     return graph ( 
         "path P₇",
         "path on 7 vertices.", 
-        nodes, edges
+        nodes, edges,
+        group="paths"
     )
 
 def make_path12():
@@ -102,7 +111,8 @@ def make_path12():
     return graph ( 
         "path P₁₂",
         "path on 12 vertices.",
-        nodes, edges
+        nodes, edges,
+        group="paths"
     )
 
 def make_cycle5():
@@ -111,7 +121,8 @@ def make_cycle5():
     return graph( 
         "cycle C₅",
         "5-cycle. discussed as a base  case for odd cycles on p.25",
-        nodes, edges
+        nodes, edges,
+        group="cycles"
     )
 
 def make_cycle6():
@@ -120,7 +131,8 @@ def make_cycle6():
     return graph(
         "cycle C₆",
         "6-cycle (even).",
-        nodes, edges
+        nodes, edges,
+        group="cycles"
     )
  
  
@@ -130,7 +142,20 @@ def make_cycle12():
     return graph(
         "cycle C₁₂",
         "12-cycle.",
-        nodes, edges
+        nodes, edges,
+        group="cycles"
+    )
+
+def make_complete4():
+    # K4: every vertex adjacent to every other. this was in the html dropdown
+    # but never existed in graphs.json -- selecting it crashed the sim. fixed!
+    nodes = circle_nodes(4, angle_offset=-math.pi/4)
+    edges = [[i, j] for i in range(4) for j in range(i+1, 4)]
+    return graph(
+        "complete K₄",
+        "complete graph on 4 vertices. cop number 1 (it's a clique).",
+        nodes, edges,
+        group="classic graphs"
     )
  
 # def make_caterpillar():  # i hope this is right im super conufsesd :D 
@@ -152,6 +177,7 @@ def make_cycle12():
 #         nodes, edges
 #     ) 
 # may not use this 
+# (heads up: node ids skip 7 and 10 but the edges use them -- fix before uncommenting)
 
 # def spider? def tall tree? what are some interesting cases? 
 
@@ -166,8 +192,9 @@ def make_petersen():
     )
     return graph(
         "petersen graph",
-        "cop number 2 classically",
-        nodes, edges
+        "cop number 3 classically",
+        nodes, edges,
+        group="classic graphs"
     )
 
 # oo could be dodecahedron. organize this into a logical list of stuff to add + ask Dr Meger...?
@@ -189,7 +216,8 @@ def make_grid3x4():
     return graph( # vscode keeps saying this is not closed, but that is just erroneous. it is. i promise
         "grid 3x4",
         "3x4 grid.  cop number 2",
-        nodes, edges
+        nodes, edges,
+        group="grids"
     )
 
 def make_grid3x3():
@@ -197,7 +225,8 @@ def make_grid3x3():
     return graph(
         "grid 3x3",
         "cop number 2",
-        nodes, edges 
+        nodes, edges,
+        group="grids"
     )
 
 def make_necklace(k):
@@ -232,7 +261,8 @@ def make_necklace3():
     return graph(
         "necklace N₃",
         "three 4-cycles in a chain. see ch.3 for distinguishing between local vs.global barricade rules.",
-        nodes, edges
+        nodes, edges,
+        group="key examples"
     )
 
 def make_necklace4():
@@ -240,7 +270,8 @@ def make_necklace4():
     return graph ( 
         "necklace N₄",
         "four 4-cycles in a chain. see ch.3 for distinguishing between local and global barricade rules.",
-        nodes, edges 
+        nodes, edges,
+        group="key examples"
     )
 
 
@@ -250,18 +281,23 @@ def make_necklace4():
 # finally build + serve graphs 
 
 def build_all():
+    # dict order here = dropdown order in the sim (json preserves it)
     return {
-        "path5": make_path5(),
-        "path7":       make_path7(),
-        "path12":      make_path12(),
-        "cycle5":      make_cycle5(),
-        "cycle6":      make_cycle6(),
-        "cycle12":     make_cycle12(),
-        "petersen":    make_petersen(),
-        "grid3x3":     make_grid3x3(),
-        "grid3x4":     make_grid3x4(),
-        "necklace3":   make_necklace3(),
-        "necklace4":   make_necklace4(),
+        "path5":         make_path5(),
+        "path7":         make_path7(),
+        "path12":        make_path12(),
+        "cycle5":        make_cycle5(),
+        "cycle6":        make_cycle6(),
+        "cycle12":       make_cycle12(),
+        "complete4":     make_complete4(),
+        "petersen":      make_petersen(),
+        "grid3x3":       make_grid3x3(),
+        "grid3x4":       make_grid3x4(),
+        "necklace3":     make_necklace3(),
+        "necklace4":     make_necklace4(),
+        "bipartite_3x2": make_complete_bipartite(3, 2),
+        "bipartite_4x2": make_complete_bipartite(4, 2),
+        "bipartite_3x3": make_complete_bipartite(3, 3),
     }
 
 if __name__ == "__main__":

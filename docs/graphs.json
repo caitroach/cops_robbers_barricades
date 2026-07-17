@@ -2,6 +2,7 @@
   "path5": {
     "label": "path P\u2085",
     "desc": "path on 5 vertices.",
+    "group": "paths",
     "nodes": [
       {
         "id": 0,
@@ -51,6 +52,7 @@
   "path7": {
     "label": "path P\u2087",
     "desc": "path on 7 vertices.",
+    "group": "paths",
     "nodes": [
       {
         "id": 0,
@@ -118,6 +120,7 @@
   "path12": {
     "label": "path P\u2081\u2082",
     "desc": "path on 12 vertices.",
+    "group": "paths",
     "nodes": [
       {
         "id": 0,
@@ -230,6 +233,7 @@
   "cycle5": {
     "label": "cycle C\u2085",
     "desc": "5-cycle. discussed as a base  case for odd cycles on p.25",
+    "group": "cycles",
     "nodes": [
       {
         "id": 0,
@@ -283,6 +287,7 @@
   "cycle6": {
     "label": "cycle C\u2086",
     "desc": "6-cycle (even).",
+    "group": "cycles",
     "nodes": [
       {
         "id": 0,
@@ -345,6 +350,7 @@
   "cycle12": {
     "label": "cycle C\u2081\u2082",
     "desc": "12-cycle.",
+    "group": "cycles",
     "nodes": [
       {
         "id": 0,
@@ -458,9 +464,63 @@
       ]
     ]
   },
+  "complete4": {
+    "label": "complete K\u2084",
+    "desc": "complete graph on 4 vertices. cop number 1 (it's a clique).",
+    "group": "classic graphs",
+    "nodes": [
+      {
+        "id": 0,
+        "x": 0.7546,
+        "y": 0.2454
+      },
+      {
+        "id": 1,
+        "x": 0.7546,
+        "y": 0.7546
+      },
+      {
+        "id": 2,
+        "x": 0.2454,
+        "y": 0.7546
+      },
+      {
+        "id": 3,
+        "x": 0.2454,
+        "y": 0.2454
+      }
+    ],
+    "edges": [
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        3
+      ]
+    ]
+  },
   "petersen": {
     "label": "petersen graph",
-    "desc": "cop number 2 classically",
+    "desc": "cop number 3 classically",
+    "group": "classic graphs",
     "nodes": [
       {
         "id": 0,
@@ -579,6 +639,7 @@
   "grid3x3": {
     "label": "grid 3x3",
     "desc": "cop number 2",
+    "group": "grids",
     "nodes": [
       {
         "id": 0,
@@ -680,6 +741,7 @@
   "grid3x4": {
     "label": "grid 3x4",
     "desc": "3x4 grid.  cop number 2",
+    "group": "grids",
     "nodes": [
       {
         "id": 0,
@@ -816,6 +878,7 @@
   "necklace3": {
     "label": "necklace N\u2083",
     "desc": "three 4-cycles in a chain. see ch.3 for distinguishing between local vs.global barricade rules.",
+    "group": "key examples",
     "nodes": [
       {
         "id": 0,
@@ -922,6 +985,7 @@
   "necklace4": {
     "label": "necklace N\u2084",
     "desc": "four 4-cycles in a chain. see ch.3 for distinguishing between local and global barricade rules.",
+    "group": "key examples",
     "nodes": [
       {
         "id": 0,
@@ -1053,6 +1117,300 @@
       [
         12,
         4
+      ]
+    ]
+  },
+  "bipartite_3x2": {
+    "label": "staged complete bipartite (2-2-2)",
+    "desc": "path on 3 sets, complete bipartite between sets",
+    "group": "key examples",
+    "nodes": [
+      {
+        "id": 0,
+        "x": 0.05,
+        "y": 0.1
+      },
+      {
+        "id": 1,
+        "x": 0.05,
+        "y": 0.9
+      },
+      {
+        "id": 2,
+        "x": 0.5,
+        "y": 0.1
+      },
+      {
+        "id": 3,
+        "x": 0.5,
+        "y": 0.9
+      },
+      {
+        "id": 4,
+        "x": 0.95,
+        "y": 0.1
+      },
+      {
+        "id": 5,
+        "x": 0.95,
+        "y": 0.9
+      }
+    ],
+    "edges": [
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        3,
+        5
+      ]
+    ]
+  },
+  "bipartite_4x2": {
+    "label": "staged complete bipartite (2-2-2-2)",
+    "desc": "path on 4 sets, complete bipartite between sets",
+    "group": "key examples",
+    "nodes": [
+      {
+        "id": 0,
+        "x": 0.05,
+        "y": 0.1
+      },
+      {
+        "id": 1,
+        "x": 0.05,
+        "y": 0.9
+      },
+      {
+        "id": 2,
+        "x": 0.35,
+        "y": 0.1
+      },
+      {
+        "id": 3,
+        "x": 0.35,
+        "y": 0.9
+      },
+      {
+        "id": 4,
+        "x": 0.65,
+        "y": 0.1
+      },
+      {
+        "id": 5,
+        "x": 0.65,
+        "y": 0.9
+      },
+      {
+        "id": 6,
+        "x": 0.95,
+        "y": 0.1
+      },
+      {
+        "id": 7,
+        "x": 0.95,
+        "y": 0.9
+      }
+    ],
+    "edges": [
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        5,
+        7
+      ]
+    ]
+  },
+  "bipartite_3x3": {
+    "label": "staged complete bipartite (3-3-3)",
+    "desc": "path on 3 sets, complete bipartite between sets",
+    "group": "key examples",
+    "nodes": [
+      {
+        "id": 0,
+        "x": 0.05,
+        "y": 0.1
+      },
+      {
+        "id": 1,
+        "x": 0.05,
+        "y": 0.5
+      },
+      {
+        "id": 2,
+        "x": 0.05,
+        "y": 0.9
+      },
+      {
+        "id": 3,
+        "x": 0.5,
+        "y": 0.1
+      },
+      {
+        "id": 4,
+        "x": 0.5,
+        "y": 0.5
+      },
+      {
+        "id": 5,
+        "x": 0.5,
+        "y": 0.9
+      },
+      {
+        "id": 6,
+        "x": 0.95,
+        "y": 0.1
+      },
+      {
+        "id": 7,
+        "x": 0.95,
+        "y": 0.5
+      },
+      {
+        "id": 8,
+        "x": 0.95,
+        "y": 0.9
+      }
+    ],
+    "edges": [
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        0,
+        5
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        1,
+        5
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        6
+      ],
+      [
+        3,
+        7
+      ],
+      [
+        3,
+        8
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        4,
+        8
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        5,
+        7
+      ],
+      [
+        5,
+        8
       ]
     ]
   }

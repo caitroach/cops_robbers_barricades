@@ -120,7 +120,7 @@ def cop_number(g, k_max=None):
 
 
 if __name__ == "__main__":
-    from graph_builder import build_all, make_complete_bipartite
+    from docs.graph_builder import build_all, make_complete_bipartite
 
     graphs = build_all()
     for key, g in graphs.items():
