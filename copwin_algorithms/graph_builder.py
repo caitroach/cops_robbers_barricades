@@ -46,6 +46,37 @@ def graph(label, desc, nodes, edges):
 graph definitions 
 '''
 
+def make_complete_bipartite(num_sets, num_vertices): # k: number of sets; n: number of nodes in those sets
+    # should check int types but i won't 
+    sizes = [num_vertices]*num_sets 
+
+    nodes = []
+    set_id = [] 
+    node_id = 0 
+    x_positions = [0.05+i*(0.9/(num_sets-1)) for i in range(num_sets)]
+
+    for i, size in enumerate(sizes):
+        ids = [] 
+        for j in range(size):
+            y = 0.05 if size == 1 else 0.1+j*(0.8/(size-1))
+            nodes.append(node(node_id, x_positions[i], y))
+            ids.append(node_id)
+            node_id+=1
+        set_id.append(ids)
+    
+    edges = [] 
+    for i in range(num_sets-1):
+        for u in set_id[i]:
+            for v in set_id[i+1]:
+                edges.append([u,v])
+    return graph(
+        f"staged complete bipartite ({'-'.join(map(str, sizes))})",
+        f"path on {num_sets} sets, complete bipartite between sets",
+        nodes, edges
+    ) 
+
+
+
 # probs would make more sense if this was a general function but i dunnooo
 def make_path5():
     nodes = path_nodes(5)
@@ -211,6 +242,7 @@ def make_necklace4():
         "four 4-cycles in a chain. see ch.3 for distinguishing between local and global barricade rules.",
         nodes, edges 
     )
+
 
 # hypercube? prism? what other shapes should i be making? 
 

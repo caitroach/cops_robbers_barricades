@@ -14,8 +14,10 @@ from collections import deque
 from itertools import product 
 import networkx as nx 
 
+# can k cops win on this graph? 
+# g6 format 
 def is_k_copwin(graph, k): # graph is undirected with no self-loops
-    n = len(graph)
+    n = len(graph) 
     if k>=n:
         return True
     
@@ -27,17 +29,18 @@ def is_k_copwin(graph, k): # graph is undirected with no self-loops
     # boooo tomato tomato :(
     vertices = list(range(n)) # makes list of vertices [0,1,2,...,n] i think
     preds = {} 
-    states = []
+    states = [] # state graph building as we go through the algorithm ? 
+    # visualize the state graph with some kind of code, taken out here because it's not usable other than size 2 or 3... state space explodes. small graphs only. gets massive. 
 
     for pos in product(vertices, repeat=(k+1)):
         for t in range(0,k+1):
             s = (*pos, t)
-            states.append(s)
-            cops_win[s] = 0 
+            states.append(s) 
+            cops_win[s] = 0  # initialize all states to 0 
             if t==k:
                 counter[s] = len(graph[pos[0]]) + 1
             else: 
-                counter[s] = 0
+                counter[s] = 0 # not used for cop's turn
 
     for s in states: 
         for i in range(1, k+1):
@@ -51,7 +54,7 @@ def is_k_copwin(graph, k): # graph is undirected with no self-loops
             
     def predecessors(state):
         positions = list(state[:-1])
-        t = state[-1]
+        t = state[-1] 
         preds = []
 
         for prev_pos in graph[positions[t]] + [positions[t]]: 
@@ -63,6 +66,7 @@ def is_k_copwin(graph, k): # graph is undirected with no self-loops
     '''
     reverse BFS: each game state s is dequeued (i can't spell) from Q in
     FIFO order...
+    propogate backwards through the state space tree 
     '''
     while q: 
         s = q.popleft()
@@ -70,15 +74,17 @@ def is_k_copwin(graph, k): # graph is undirected with no self-loops
         # so this unpacks the turn index while ignoring positional details
 
         if t !=0: # if a cop just moved, then any predecessor state from the game transitioned into s is also a winning state for cops.
-            for pred in predecessors(s):
+            for pred in predecessors(s): # not the robber's turn 
                 if cops_win[pred] == 0:
                     q.append(pred)
                     cops_win[pred] = 1 
                     preds[pred] = preds.get(pred,[]) + [s]
+
+        # note graph here... if there's anything i want to text meagan about then do that. 
         
         else: 
             for pred in predecessors(s):
-                counter[pred] -=1 
+                counter[pred] -=1 # counter robber is moving into a copwin position?
                 if counter[pred] == 0:
                     q.append(pred)
                     cops_win[pred]=1
@@ -91,4 +97,3 @@ def is_k_copwin(graph, k): # graph is undirected with no self-loops
         
     return False 
         
-
