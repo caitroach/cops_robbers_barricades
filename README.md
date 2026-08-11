@@ -1,4 +1,5 @@
 # QU Graph Lab Summer 2026: Cops, Robbers, and Barricades
+<img width="3910" height="1968" alt="image" src="https://github.com/user-attachments/assets/93695331-aa28-402d-b863-842ce877f903" />
 
 ## introduction
 Cops and Robbers is a classic pursuit-evasion game where the environment is modelled as a graph, and each player (team pursuit vs team evade) occupies a node on the graph. If a pursuer (cop) occupies the same node as an evader, the evader (robber) is captured. If one pursuer is enough to ensure the eventual capture of the robber, then the graph is called a cop-win-graph. In this case, a single evader can always be captured in time linear to the number of nodes n on the graph. Capturing r evaders with k pursuers can take the order of rn time as well, but the exact bounds for k>1 are still unknown. (Some variants allow robbers to have "infinite velocity", allowing them to move to any node on the graph as long as there's a path between original and final nodes. Finding the number of cops necessary to capture one robber with infinite velocity in G is equivalent to finding the treewidth of G.)  
